@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ride Confirmed | RideFlow</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="confirmation-container">
+
+        <div class="confirmation-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h1>Ride Confirmed</h1>
+
+            <p class="subtitle">
+                Your ride has been successfully booked.
+            </p>
+
+            <div class="ride-id">
+                Ride ID: {{ ride.get("ride_id", "N/A") }}
+            </div>
+
+
+            <div class="route-section">
+
+                <div class="location">
+                    <span class="location-dot pickup-dot"></span>
+
+                    <div>
+                        <small>Pickup</small>
+                        <p>
+                            {{ ride.get("pickup_address", "N/A") }}
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="route-line"></div>
+
+
+                <div class="location">
+                    <span class="location-dot dropoff-dot"></span>
+
+                    <div>
+                        <small>Destination</small>
+                        <p>
+                            {{ ride.get("dropoff_address", "N/A") }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="details-grid">
+
+                <div class="detail">
+                    <span>Ride Type</span>
+                    <strong>
+                        {{ ride.get("requested_ride_type", ride.get("vehicle_type", "N/A")) }}
+                    </strong>
+                </div>
+
+                <div class="detail">
+                    <span>Passengers</span>
+                    <strong>
+                        {{ ride.get("passenger_count", "N/A") }}
+                    </strong>
+                </div>
+
+                <div class="detail">
+                    <span>Payment</span>
+                    <strong>
+                        {{ ride.get("payment_method", "N/A") }}
+                    </strong>
+                </div>
+
+                <div class="detail">
+                    <span>Distance</span>
+                    <strong>
+                        {{ ride.get("distance_miles", "N/A") }} miles
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="fare-section">
+
+                <span>Total Fare</span>
+
+                <strong>
+                    ${{ "%.2f"|format(ride.get("total_fare", 0)) }}
+                </strong>
+
+            </div>
+
+
+            <div class="driver-section">
+
+                <h3>Your Driver</h3>
+
+                <div class="driver-info">
+
+                    <div>
+                        <span>Driver</span>
+                        <strong>
+                            {{ ride.get("driver_name", "N/A") }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Rating</span>
+                        <strong>
+                            ⭐ {{ ride.get("driver_rating", "N/A") }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Vehicle</span>
+                        <strong>
+                            {{ ride.get("vehicle_make", "") }}
+                            {{ ride.get("vehicle_model", "") }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>License Plate</span>
+                        <strong>
+                            {{ ride.get("license_plate", "N/A") }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% if sent %}
+
+            <div class="event-status success">
+                ✓ Ride event sent successfully
+            </div>
+
+            {% else %}
+
+            <div class="event-status error">
+                ⚠ Ride booked, but event could not be sent
+            </div>
+
+            {% endif %}
+
+
+            <a href="/" class="book-again">
+                Book Another Ride
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
