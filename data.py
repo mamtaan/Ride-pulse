@@ -6,9 +6,7 @@ from faker import Faker
 fake = Faker()
 
 
-# ============================================================
 # VEHICLE TYPE MAPPING
-# ============================================================
 
 VEHICLE_TYPE_MAPPING = [
     {
@@ -54,9 +52,7 @@ VEHICLE_TYPE_MAPPING = [
 ]
 
 
-# ============================================================
 # PAYMENT METHOD MAPPING
-# ============================================================
 
 PAYMENT_METHOD_MAPPING = [
     {
@@ -86,9 +82,7 @@ PAYMENT_METHOD_MAPPING = [
 ]
 
 
-# ============================================================
 # RIDE STATUS MAPPING
-# ============================================================
 
 RIDE_STATUS_MAPPING = [
     {
@@ -104,9 +98,7 @@ RIDE_STATUS_MAPPING = [
 ]
 
 
-# ============================================================
 # VEHICLE MAKE MAPPING
-# ============================================================
 
 VEHICLE_MAKE_MAPPING = [
     {'vehicle_make_id': 1, 'vehicle_make': 'Toyota'},
@@ -119,9 +111,7 @@ VEHICLE_MAKE_MAPPING = [
 ]
 
 
-# ============================================================
 # LOOKUP LISTS AND ID MAPS
-# ============================================================
 
 VEHICLE_MAKES_LIST = [
     m['vehicle_make']
@@ -167,9 +157,7 @@ RIDE_STATUS_ID_MAP = {
 }
 
 
-# ============================================================
 # CITY MAPPING
-# ============================================================
 
 CITY_MAPPING = [
     {
@@ -246,9 +234,7 @@ CITY_ID_MAP = {
 }
 
 
-# ============================================================
 # CANCELLATION REASON MAPPING
-# ============================================================
 
 CANCELLATION_REASON_MAPPING = [
     {
@@ -276,9 +262,7 @@ CANCELLATION_REASON_ID_MAP = {
 }
 
 
-# ============================================================
 # RIDE DATA GENERATOR
-# ============================================================
 
 def generate_ride_confirmation(
     pickup=None,
@@ -288,9 +272,7 @@ def generate_ride_confirmation(
     payment=None
 ):
 
-    # --------------------------------------------------------
     # Generate timestamps
-    # --------------------------------------------------------
 
     pickup_time = (
         datetime.now()
@@ -313,9 +295,7 @@ def generate_ride_confirmation(
     )
 
 
-    # --------------------------------------------------------
     # Distance
-    # --------------------------------------------------------
 
     distance = round(
         random.uniform(0.5, 50),
@@ -323,9 +303,7 @@ def generate_ride_confirmation(
     )
 
 
-    # --------------------------------------------------------
     # Vehicle Type
-    # --------------------------------------------------------
 
     # Map frontend ride types to your existing data model
     ride_type_mapping = {
@@ -360,9 +338,7 @@ def generate_ride_confirmation(
     per_minute_rate = selected_vehicle['per_minute']
 
 
-    # --------------------------------------------------------
     # Pricing calculation
-    # --------------------------------------------------------
 
     surge_multiplier = round(
         random.uniform(1.0, 2.5),
@@ -408,9 +384,7 @@ def generate_ride_confirmation(
     )
 
 
-    # --------------------------------------------------------
     # Location details
-    # --------------------------------------------------------
 
     if pickup:
         pickup_address = pickup
@@ -429,9 +403,7 @@ def generate_ride_confirmation(
         )
 
 
-    # --------------------------------------------------------
     # Pickup and dropoff cities
-    # --------------------------------------------------------
 
     pickup_city = random.choice(CITY_LIST)
     dropoff_city = random.choice(CITY_LIST)
@@ -440,9 +412,7 @@ def generate_ride_confirmation(
     dropoff_city_id = CITY_ID_MAP[dropoff_city]
 
 
-    # --------------------------------------------------------
     # Vehicle make
-    # --------------------------------------------------------
 
     vehicle_make = random.choice(
         VEHICLE_MAKES_LIST
@@ -453,9 +423,7 @@ def generate_ride_confirmation(
     ]
 
 
-    # --------------------------------------------------------
     # Cancellation and ride status
-    # --------------------------------------------------------
 
     is_cancelled = random.random() < 0.10
 
@@ -496,9 +464,7 @@ def generate_ride_confirmation(
         )
 
 
-    # --------------------------------------------------------
     # Payment method
-    # --------------------------------------------------------
 
     payment_mapping = {
         'UPI': 'Digital Wallet',
@@ -521,9 +487,7 @@ def generate_ride_confirmation(
     ]
 
 
-    # --------------------------------------------------------
     # Passenger count
-    # --------------------------------------------------------
 
     if passengers is None:
         passenger_count = random.randint(1, 4)
@@ -531,15 +495,11 @@ def generate_ride_confirmation(
         passenger_count = passengers
 
 
-    # --------------------------------------------------------
     # Ride confirmation payload
-    # --------------------------------------------------------
 
     ride_confirmation = {
 
-        # ====================================================
         # Keys / Identifiers
-        # ====================================================
 
         'ride_id': str(uuid.uuid4()),
 
@@ -558,9 +518,7 @@ def generate_ride_confirmation(
         'dropoff_location_id': str(uuid.uuid4()),
 
 
-        # ====================================================
         # Foreign Keys
-        # ====================================================
 
         'vehicle_type_id': vehicle_type_id,
 
@@ -577,9 +535,7 @@ def generate_ride_confirmation(
         'cancellation_reason_id': cancellation_reason_id,
 
 
-        # ====================================================
         # Passenger Information
-        # ====================================================
 
         'passenger_name': fake.name(),
 
@@ -590,9 +546,7 @@ def generate_ride_confirmation(
         'passenger_count': passenger_count,
 
 
-        # ====================================================
         # Driver Information
-        # ====================================================
 
         'driver_name': fake.name(),
 
@@ -608,9 +562,7 @@ def generate_ride_confirmation(
         ),
 
 
-        # ====================================================
         # Vehicle Information
-        # ====================================================
 
         'vehicle_make': vehicle_make,
 
@@ -632,9 +584,7 @@ def generate_ride_confirmation(
         ),
 
 
-        # ====================================================
         # Pickup & Dropoff Locations
-        # ====================================================
 
         'pickup_address': pickup_address,
 
@@ -661,9 +611,7 @@ def generate_ride_confirmation(
         ),
 
 
-        # ====================================================
         # Ride Details
-        # ====================================================
 
         'distance_miles': distance,
 
@@ -676,9 +624,7 @@ def generate_ride_confirmation(
         'dropoff_timestamp': dropoff_time.isoformat(),
 
 
-        # ====================================================
         # Pricing
-        # ====================================================
 
         'base_fare': base_fare,
 
@@ -695,9 +641,7 @@ def generate_ride_confirmation(
         'total_fare': total_fare,
 
 
-        # ====================================================
         # Booking Input
-        # ====================================================
 
         'requested_ride_type': ride_type,
 
@@ -706,9 +650,8 @@ def generate_ride_confirmation(
         'passenger_count': passenger_count,
 
 
-        # ====================================================
         # Payment & Status
-        # ====================================================
+        
 
         'payment_method': payment_method,
 
